@@ -1,5 +1,5 @@
 import { Inngest } from "inngest";
-import { serve } from "inngest/vercel";
+import { serve } from "inngest/next";
 import { kv } from "@vercel/kv";
 
 // ── Inngest client ────────────────────────────────────────────────────
