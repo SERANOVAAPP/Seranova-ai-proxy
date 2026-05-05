@@ -53,8 +53,6 @@ const { jobId } = event.data;
 if (!jobId) {
 throw new Error("Event data missing jobId");
 }
-
-```
 // Step 1: Load the request payload from Redis.
 // (It was stored there by /api/jobs/start because Inngest events
 // have payload size limits and the request can be up to several MB.)
@@ -121,7 +119,6 @@ await step.run("cleanup-payload", async () => {
 });
 
 return { jobId, status: "completed" };
-```
 
 }
 );
