@@ -28,7 +28,6 @@ try {
 stage = "parse-body";
 const payload = req.body;
 
-```
 // Sanity check the payload looks like an Anthropic request
 if (!payload || !payload.model || !payload.messages) {
   return res.status(400).json({
@@ -78,7 +77,6 @@ return res.status(202).json({
   status: "queued",
   pollUrl: `/api/jobs/${jobId}`,
 });
-```
 
 } catch (err) {
 // Log full error server-side, return safe info to client
