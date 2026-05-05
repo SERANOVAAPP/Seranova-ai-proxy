@@ -1,31 +1,31 @@
-import { kv } from “@vercel/kv”;
-import { inngest } from “../inngest.js”;
+import { kv } from "@vercel/kv";
+import { inngest } from "../inngest.js";
 
-// Generate a short unique ID like “tp_8h3kx7q1p9”
+// Generate a short unique ID like "tp_8h3kx7q1p9"
 function makeJobId() {
-return “tp_” + Math.random().toString(36).slice(2, 12) + Date.now().toString(36).slice(-4);
+return "tp_" + Math.random().toString(36).slice(2, 12) + Date.now().toString(36).slice(-4);
 }
 
 const JOB_TTL_SECONDS = 60 * 60 * 24; // 24 hours
 
 export default async function handler(req, res) {
 // CORS headers — required for the Hub PWA to call this endpoint
-res.setHeader(“Access-Control-Allow-Origin”, “*”);
-res.setHeader(“Access-Control-Allow-Methods”, “POST, OPTIONS”);
-res.setHeader(“Access-Control-Allow-Headers”, “Content-Type”);
-res.setHeader(“Access-Control-Max-Age”, “86400”);
+res.setHeader("Access-Control-Allow-Origin", "*");
+res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+res.setHeader("Access-Control-Max-Age", "86400");
 
-if (req.method === “OPTIONS”) {
+if (req.method === "OPTIONS") {
 return res.status(200).end();
 }
 
-if (req.method !== “POST”) {
-return res.status(405).json({ error: “Method not allowed” });
+if (req.method !== "POST") {
+return res.status(405).json({ error: "Method not allowed" });
 }
 
-let stage = “init”;
+let stage = "init";
 try {
-stage = “parse-body”;
+stage = "parse-body";
 const payload = req.body;
 
 ```
@@ -84,7 +84,7 @@ return res.status(202).json({
 // Log full error server-side, return safe info to client
 console.error(`[jobs/start] Error at stage='${stage}':`, err);
 return res.status(500).json({
-error: “Failed to start job”,
+error: "Failed to start job",
 stage,
 details: (err && err.message) || String(err),
 });
