@@ -1,16 +1,16 @@
-import { Inngest } from “inngest”;
-import { serve } from “inngest/next”;
-import { kv } from “@vercel/kv”;
+import { Inngest } from "inngest";
+import { serve } from "inngest/next";
+import { kv } from "@vercel/kv";
 
 // ── Inngest client ────────────────────────────────────────────────────
 // This identifies our app to Inngest. The id MUST stay stable across
 // deploys or Inngest will treat each deploy as a different app.
-export const inngest = new Inngest({ id: “seranova-staff-hub” });
+export const inngest = new Inngest({ id: "seranova-staff-hub" });
 
 // ── Job storage helpers ───────────────────────────────────────────────
-// Jobs live in Redis under keys like “tpjob:abc123”. We store the
+// Jobs live in Redis under keys like "tpjob:abc123". We store the
 // entire job state as JSON so the phone can poll one key for everything.
-// The full request payload lives at “tppayload:abc123” (separate key
+// The full request payload lives at "tppayload:abc123" (separate key
 // because it can be 1-3MB and we don’t want to read/write it on every
 // status update).
 const JOB_TTL_SECONDS = 60 * 60 * 24; // 24 hours
@@ -37,21 +37,21 @@ console.error(`[inngest] Failed to delete payload for ${jobId}:`, e);
 }
 
 // ── The worker function ───────────────────────────────────────────────
-// Triggered by an event called “tp/generate.requested” (data: { jobId }).
+// Triggered by an event called "tp/generate.requested" (data: { jobId }).
 // Reads the payload from Redis, calls Anthropic, stores the result.
 export const generateTreatmentPlan = inngest.createFunction(
 {
-id: “generate-treatment-plan”,
+id: "generate-treatment-plan",
 retries: 2,
 // Treatment plans with 6 photos can take 60-120 seconds.
 // Give the function plenty of headroom.
-timeouts: { start: “5m”, finish: “10m” },
+timeouts: { start: "5m", finish: "10m" },
 },
-{ event: “tp/generate.requested” },
+{ event: "tp/generate.requested" },
 async ({ event, step }) => {
 const { jobId } = event.data;
 if (!jobId) {
-throw new Error(“Event data missing jobId”);
+throw new Error("Event data missing jobId");
 }
 
 ```
