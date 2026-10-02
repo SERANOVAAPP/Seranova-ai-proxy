@@ -1,0 +1,20 @@
+{
+  "name": "inbox-pilot",
+  "version": "0.1.0",
+  "description": "AI email triage: finds what matters across your inboxes, summarizes it, and clears the junk",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node dev/server.js",
+    "demo": "DEMO_MODE=1 node dev/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@vercel/kv": "^3.0.0",
+    "inngest": "^3.27.0"
+  }
+}

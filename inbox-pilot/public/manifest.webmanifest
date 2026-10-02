@@ -1,0 +1,9 @@
+{
+  "name": "Inbox Pilot",
+  "short_name": "Inbox Pilot",
+  "start_url": "/#/brief",
+  "display": "standalone",
+  "background_color": "#f6f4ef",
+  "theme_color": "#2f6f62",
+  "icons": [{ "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}
